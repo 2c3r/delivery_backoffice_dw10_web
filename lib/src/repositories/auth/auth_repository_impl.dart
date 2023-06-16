@@ -5,7 +5,6 @@ import 'package:delivery_backoffice_dw10/src/core/exceptions/unauthorized_except
 import 'package:delivery_backoffice_dw10/src/core/rest_client/custom_dio.dart';
 import 'package:delivery_backoffice_dw10/src/models/auth_model.dart';
 import 'package:dio/dio.dart';
-
 import './auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -25,7 +24,7 @@ class AuthRepositoryImpl implements AuthRepository {
         },
       );
       return AuthModel.fromMap(result.data);
-    } on DioError catch (e, s) {
+    } on DioException catch (e, s) {
       if (e.response?.statusCode == 403) {
         log('Email ou senha, inválidos.', error: s, stackTrace: s);
         throw UnauthorizedException();
